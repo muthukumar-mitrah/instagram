@@ -1,0 +1,6 @@
+export const background = require('./images/background.jpg')
+export const instagramText = require('./images/text_image.png')
+export const storyIcon = require('./images/story.png')
+export const galleryIcon = require('./images/gallery.png')
+export const cameraIcon = require('./images/camera.png')
+export const userImg = require('./images/user.png')

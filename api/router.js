@@ -1,18 +1,28 @@
 import express from 'express'
-import { downloadfileFunc, getFileFunc, uploadFileFunc } from './controllers/fileController.js'
+import { deleteStory, getAllStories, uploadStory } from './controllers/storyController.js'
+import multer from 'multer'
 
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-    res.send('success')
+  res.send('success')
+})  
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    console.log('file', file)
+    callback(null, 'uploads')
+  },
+  filename: (req, file, callback) => {
+    console.log('req fileeeeeeees', file)
+    callback(null, file.originalname)
+  }
 })
 
-router.post('/story', uploadFileFunc)
+router.post('/uploadStory', multer({ storage }).single('media'), uploadStory)
 
-router.get('/get_story', getFileFunc)
+router.get('/stories', getAllStories)
 
-router.get('/download_story/:id', downloadfileFunc)
-
-
+router.get('/delete/:id', deleteStory)
 
 export default router

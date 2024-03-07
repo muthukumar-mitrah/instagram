@@ -13,6 +13,7 @@ import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
 import org.devio.rn.splashscreen.SplashScreenReactPackage
 import com.brentvatne.react.ReactVideoPackage
+import com.rnfs.RNFSPackage
 
 class MainApplication : Application(), ReactApplication {
 

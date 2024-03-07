@@ -6,9 +6,10 @@ const requestOptions = async (method, body) => {
     let options = {
         method: method,
         headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
         },
     };
+    console.log('body', body)
     if(body) {
         options = {
             ...options,
@@ -41,11 +42,15 @@ export const Put = (endpoint, body) => request(endpoint, 'PUT', body);
 export const Delete = endpoint => request(endpoint, 'DELETE')
 
 export const postStory = (body) => {
-    return Post('story', body)
+    return Post('uploadStory', body)
 }
 
 export const getStories = (body) => {
-    return Get('get_story')
+    return Get('stories')
+}
+
+export const deleteStories = (id) => {
+    return Delete(`delete/${id}`)
 }
 
 export const getStory = (id) => {

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { View, Text, ImageBackground, Image, TouchableOpacity, Modal, ScrollView, TouchableWithoutFeedback } from 'react-native'
+import { useEffect, useState, useCallback } from 'react'
+import { View, Text, ImageBackground, Image, TouchableOpacity, Modal, ScrollView, RefreshControl } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { background, cameraIcon, closeImg, galleryIcon, instagramText, storyIcon, typoImg, userImg } from '../../assets'
 import { useAuth } from '../../context/AuthContext'
@@ -8,6 +8,7 @@ import styles from './style'
 const Login = ({ navigation }) => {
     const { getAllStories, stories } = useAuth()
     const [isVisible, setIsVisible] = useState(false)
+    const [refreshing, setRefreshing] = useState(false)
 
     const openGallery = async () => {
         const options = {
@@ -35,12 +36,23 @@ const Login = ({ navigation }) => {
         getAllStories()
     }, [])
 
-    const style = isVisible ? { backgroundColor: '#00000066' } : {}
-    console.log('isVisible', isVisible)
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+            getAllStories()
+        }, 2000);
+    }, []);
+
 
     return (
         <ImageBackground source={background} style={styles.container}>
-            {/* <View style={[{ flex: 1 }, style]}> */}
+            <ScrollView
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+            >
                 <Image source={instagramText} style={styles.textImage} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity style={{ marginHorizontal: 20, marginTop: 30 }} onPress={() => setIsVisible(true)}>
@@ -75,14 +87,14 @@ const Login = ({ navigation }) => {
                                 <Image source={galleryIcon} style={styles.modalIcon} />
                                 <Text style={styles.modalText}>Open Gallery</Text>
                             </TouchableOpacity>
-                            {/* <TouchableOpacity style={styles.wrapper} onPress={() => { navigation.navigate('text'); setIsVisible(false) }}>
+                            <TouchableOpacity style={styles.wrapper} onPress={() => { navigation.navigate('text'); setIsVisible(false) }}>
                                 <Image source={typoImg} style={styles.modalIcon} />
                                 <Text style={styles.modalText}>Type a Story</Text>
-                            </TouchableOpacity> */}
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
-            {/* </View> */}
+            </ScrollView>
         </ImageBackground>
     )
 }

@@ -98,7 +98,8 @@ const ViewStory = ({ navigation, route }) => {
                 style={{ flex: 1 }}
                 role=''
                 renderItem={({ item, index }) => {
-                    const isVideo = (item.photoUrl.includes('.mp4')) ? true : false
+                    console.log('item', item)
+                    const isVideo = (item.photoUrl?.includes('.mp4')) ? true : false
                     if(index === 0 && stories[index]?.musicUrl && !count) {
                         count = count + 1
                         playAudio(stories[index].musicUrl)
@@ -126,23 +127,35 @@ const ViewStory = ({ navigation, route }) => {
                                     <Text style={{ fontSize: 16, color: '#fff', fontWeight: '500' }}>Delete</Text>
                                 </TouchableOpacity>
                             </TouchableOpacity>
-                            {isVideo ?
-                                <Video
-                                    source={{ uri: item.photoUrl }}
-                                    style={{
-                                        width: Dimensions.get('window').width,
-                                        height: Dimensions.get('window').height
-                                    }}
-                                    resizeMode="contain"
-                                />
-                                :
-                                <Image
-                                    source={{ uri: item.photoUrl }}
-                                    style={{
-                                        width: Dimensions.get('window').width,
-                                        height: Dimensions.get('window').height
-                                    }}
-                                />
+                            {item?.text ?
+                                <View style={{
+                                    width: Dimensions.get('window').width,
+                                    height: Dimensions.get('window').height,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#DCDCDC'
+                                }}>
+                                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#000' }}>
+                                        {item.text}
+                                    </Text>
+                                </View>
+                                : isVideo ?
+                                    <Video
+                                        source={{ uri: item.photoUrl }}
+                                        style={{
+                                            width: Dimensions.get('window').width,
+                                            height: Dimensions.get('window').height
+                                        }}
+                                        resizeMode="contain"
+                                    />
+                                    :
+                                    <Image
+                                        source={{ uri: item.photoUrl }}
+                                        style={{
+                                            width: Dimensions.get('window').width,
+                                            height: Dimensions.get('window').height
+                                        }}
+                                    />
                             }
                         </View >
                     )

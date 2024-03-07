@@ -26,7 +26,8 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-swiper-flatlist": "^3.2.3",
     "react-native-track-player": "^4.0.1",
-    "react-native-video": "^5.2.1"
+    "react-native-video": "^5.2.1",
+    "rn-emoji-keyboard": "^1.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

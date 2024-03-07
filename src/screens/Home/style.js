@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     },
     storyIcon: { width: 50, height: 50 },
     modal: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-    modalContainer: { backgroundColor: '#fff', padding: 15, borderRadius: 10, width: 250, height: 180, alignItems: 'center', justifyContent: 'center' },
+    modalContainer: { backgroundColor: '#fff', padding: 15, borderRadius: 10, width: 250, height: 230, alignItems: 'center', justifyContent: 'center' },
     wrapper: { flexDirection: 'row', alignItems: 'center', marginVertical: 15 },
     modalIcon: { width: 30, height: 30, marginRight: 8 },
     modalText: { fontSize: 18, color: '#000', fontWeight: '500' }

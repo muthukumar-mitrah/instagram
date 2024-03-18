@@ -14,17 +14,18 @@ const StoryByText = ({ navigation }) => {
     const { getAllStories } = useAuth()
 
     const postYourStory = async () => {
+
         if(!text) {
             ToastAndroid.show('Please type story then posting it', ToastAndroid.SHORT)
             return
         }
+
         const userId = Math.floor(Math.random() * 100) + 1;
         const formData = new FormData();
-        console.log('text', text)
         formData.append("userId", userId);
         formData.append("text", text);
         formData.append("musicUrl", musicUrl || '');
-        console.log('formData', formData)
+
         try {
             const response = await postStory(formData)
             navigation.navigate('login')
@@ -37,7 +38,6 @@ const StoryByText = ({ navigation }) => {
     }
     console.log('text', text)
     const playAudio = async (uri) => {
-        // await TrackPlayer.reset()
         TrackPlayer.setupPlayer()
         await TrackPlayer.add({
             id: '1',

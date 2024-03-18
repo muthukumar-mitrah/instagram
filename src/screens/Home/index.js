@@ -5,7 +5,7 @@ import { background, cameraIcon, closeImg, galleryIcon, instagramText, storyIcon
 import { useAuth } from '../../context/AuthContext'
 import styles from './style'
 
-const Login = ({ navigation }) => {
+const Home = ({ navigation }) => {
     const { getAllStories, stories } = useAuth()
     const [isVisible, setIsVisible] = useState(false)
     const [refreshing, setRefreshing] = useState(false)
@@ -36,7 +36,6 @@ const Login = ({ navigation }) => {
         getAllStories()
     }, [])
 
-
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
@@ -44,7 +43,6 @@ const Login = ({ navigation }) => {
             getAllStories()
         }, 2000);
     }, []);
-
 
     return (
         <ImageBackground source={background} style={styles.container}>
@@ -99,4 +97,4 @@ const Login = ({ navigation }) => {
     )
 }
 
-export default Login
+export default Home

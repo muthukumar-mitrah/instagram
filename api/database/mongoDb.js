@@ -4,7 +4,6 @@ const connectionString = "mongodb+srv://rmuthukumar48:JDptKYxhoHIMClOA@instagram
 
 mongoose.set('strictQuery', true)  // this is optional
 
-
 const mongoDB = () => mongoose.connect(connectionString)
 
 export default mongoDB

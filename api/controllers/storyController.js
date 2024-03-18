@@ -2,8 +2,8 @@ import Story from '../schema/storySchema.js'
 
 const uploadStory = async (req, res) => {
     const { userId, photoUrl, musicUrl, text } = req.body;
-
     console.log('req.body', req.body)
+
     try {
         const newStory = new Story({ userId, photoUrl, musicUrl, text });
         await newStory.save();
@@ -25,6 +25,7 @@ const getAllStories = async (req, res, next) => {
 }
 
 const deleteStory = async (req, res, next) => {
+    console.log('req.params.id', req.params.id)
     try {
         await Story.findByIdAndDelete({ _id: req.params.id })
         res.status(200).json('User deleted successfully!')
@@ -33,7 +34,5 @@ const deleteStory = async (req, res, next) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
-
-
 
 export { uploadStory, getAllStories, deleteStory }

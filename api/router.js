@@ -5,7 +5,7 @@ import multer from 'multer'
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-  res.send('success')
+  res.send('instagram api is running success!!')
 })  
 
 const storage = multer.diskStorage({
@@ -23,6 +23,6 @@ router.post('/uploadStory', multer({ storage }).single('media'), uploadStory)
 
 router.get('/stories', getAllStories)
 
-router.get('/delete/:id', deleteStory)
+router.delete('/delete/:id', deleteStory)
 
 export default router

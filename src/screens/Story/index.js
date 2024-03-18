@@ -13,11 +13,15 @@ const ViewStory = ({ navigation, route }) => {
     const handleDeleteStory = async (id) => {
         try {
             const deleteStory = await deleteStories(id)
-            console.log('deleteStory', deleteStory)
+            console.log('deleteStory response:', deleteStory)
             getAllStories()
         } catch(error) {
-            console.error('error', error)
+            console.error('deleteStory error:', error)
         }
+    }
+
+    if(!stories?.length) {
+        navigation.goBack()
     }
 
     useEffect(() => {
@@ -47,8 +51,8 @@ const ViewStory = ({ navigation, route }) => {
     }
 
     const playAudio = async (uri) => {
+        
         await TrackPlayer.reset()
-
         TrackPlayer.setupPlayer()
         await TrackPlayer.add({
             id: '1',
@@ -74,36 +78,33 @@ const ViewStory = ({ navigation, route }) => {
 
     return (
         <View style={{ flex: 1 }}>
-
             <SwiperFlatList
                 autoplay
                 autoplayDelay={30}
                 autoplayLoop
                 index={0}
                 showPagination={stories.length === 1 ? false : true}
-                // paginationActiveColor={'lightgreen'}
                 onChangeIndex={async (idx) => {
-                    console.log('idx++++++++++++++++', idx, stories[idx.index]?.musicUrl)
                     if(stories[idx.index]?.musicUrl) {
-                        console.log('first')
+                        console.log('tories[idx.index].musicUrl', stories[idx.index].musicUrl)
                         playAudio(stories[idx.index].musicUrl)
                     } else {
                         await TrackPlayer.reset()
                         TrackPlayer.stop()
                     }
                 }}
-
                 paginationStyleItem={{ width: 100, height: 2 }}
                 data={stories}
                 style={{ flex: 1 }}
                 role=''
                 renderItem={({ item, index }) => {
-                    console.log('item', item)
                     const isVideo = (item.photoUrl?.includes('.mp4')) ? true : false
+
                     if(index === 0 && stories[index]?.musicUrl && !count) {
                         count = count + 1
                         playAudio(stories[index].musicUrl)
                     }
+
                     return (
                         <View style={{ flex: 1 }}>
                             <TouchableOpacity

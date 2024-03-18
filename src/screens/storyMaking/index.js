@@ -7,7 +7,7 @@ import { postStory } from '../../Services';
 import { useAuth } from '../../context/AuthContext';
 import styles from './style';
 
-const Register = ({ route, navigation }) => {
+const StoryMaking = ({ route, navigation }) => {
 
     const { res } = route?.params
     const [isLoading, setIsLoading] = useState(true)
@@ -17,7 +17,7 @@ const Register = ({ route, navigation }) => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false)
-        }, 2000)
+        }, 1000)
     }, [])
 
     useEffect(() => {
@@ -50,7 +50,6 @@ const Register = ({ route, navigation }) => {
     }
 
     const playAudio = async (uri) => {
-        // await TrackPlayer.reset()
         TrackPlayer.setupPlayer()
         await TrackPlayer.add({
             id: '1',
@@ -66,8 +65,8 @@ const Register = ({ route, navigation }) => {
             const result = await DocumentPicker.pick({
                 type: [DocumentPicker.types.audio],
             });
-
             console.log('Selected audio file:', result);
+
             if(result.length) {
                 await TrackPlayer.reset()
                 setCombinedUri({ photoUrl: res.uri, musicUrl: result[0].uri })
@@ -113,4 +112,4 @@ const Register = ({ route, navigation }) => {
     )
 }
 
-export default Register
+export default StoryMaking;

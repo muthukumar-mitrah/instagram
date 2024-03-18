@@ -10,7 +10,6 @@ const AuthContextProvider = ({ children }) => {
         try {
             const res = await getStories()
             setStories(res)
-            console.log('accessToken', res)
         } catch(error) {
             console.error('error', error)
         }

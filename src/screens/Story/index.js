@@ -14,14 +14,12 @@ const ViewStory = ({ navigation, route }) => {
         try {
             const deleteStory = await deleteStories(id)
             console.log('deleteStory response:', deleteStory)
+            TrackPlayer.stop()
+            navigation.goBack()
             getAllStories()
         } catch(error) {
             console.error('deleteStory error:', error)
         }
-    }
-
-    if(!stories?.length) {
-        navigation.goBack()
     }
 
     useEffect(() => {
@@ -73,6 +71,8 @@ const ViewStory = ({ navigation, route }) => {
             { text: 'Yes', onPress: () => handleDeleteStory(id) },
         ])
     }
+
+    console.log('stories.length', stories.length)
 
     let count = 0
 

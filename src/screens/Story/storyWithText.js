@@ -82,7 +82,10 @@ const StoryByText = ({ navigation }) => {
     return (
         <View style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                <TouchableOpacity onPress={() => { navigation.navigate('login'); TrackPlayer.stop() }} style={{ backgroundColor: 'black', width: 100, padding: 5, borderRadius: 5, alignItems: 'center', marginVertical: 10 }}>
+                <TouchableOpacity
+                    onPress={() => { navigation.navigate('login'); TrackPlayer.stop() }}
+                    style={{ backgroundColor: 'black', width: 100, padding: 5, borderRadius: 5, alignItems: 'center', marginVertical: 10 }}
+                >
                     <Text style={{ fontSize: 18, color: '#fff' }}>Back</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => pickAudio()} style={{ backgroundColor: 'skyblue', width: 150, padding: 5, borderRadius: 5, alignItems: 'center', marginRight: 20 }}>

@@ -34,6 +34,12 @@ const StoryMaking = ({ route, navigation }) => {
         const userId = Math.floor(Math.random() * 100) + 1;
         const formData = new FormData();
 
+        formData.append('media', {
+            uri: res.uri,
+            type: res.type,
+            name: res.fileName
+        })
+
         formData.append("userId", userId);
         formData.append("photoUrl", combinedUri.photoUrl || res.uri);
         formData.append("musicUrl", combinedUri.musicUrl || '');

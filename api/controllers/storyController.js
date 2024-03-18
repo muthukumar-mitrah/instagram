@@ -2,10 +2,9 @@ import Story from '../schema/storySchema.js'
 
 const uploadStory = async (req, res) => {
     const { userId, photoUrl, musicUrl, text } = req.body;
-    console.log('req.body', req.body)
 
     try {
-        const newStory = new Story({ userId, photoUrl, musicUrl, text });
+        const newStory = new Story({ userId, photoUrl, musicUrl, text, path: req?.file?.path });
         await newStory.save();
         res.status(201).json({ message: 'Story uploaded successfully' });
     } catch(error) {

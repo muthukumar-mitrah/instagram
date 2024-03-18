@@ -1,5 +1,5 @@
 
-const BASE_URL = 'http://192.168.1.166:7000'
+const BASE_URL = 'https://instagram-azure-zeta.vercel.app'
 
 const requestOptions = async (method, body) => {
 

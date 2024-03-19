@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext'
 import { deleteStories } from '../../Services'
 import Video from 'react-native-video'
 import { userImg } from '../../assets'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
 const ViewStory = ({ navigation, route }) => {
     const { getAllStories, stories } = useAuth()
@@ -49,7 +49,7 @@ const ViewStory = ({ navigation, route }) => {
     }
 
     const playAudio = async (uri) => {
-        
+
         await TrackPlayer.reset()
         TrackPlayer.setupPlayer()
         await TrackPlayer.add({
@@ -76,6 +76,25 @@ const ViewStory = ({ navigation, route }) => {
 
     let count = 0
 
+    const width = useMemo(() => {
+        if(stories.length === 4) {
+            return 80
+        }
+        if(stories.length === 5) {
+            return 60
+        }
+        if(stories.length === 6) {
+            return 45
+        }
+        if(stories.length === 7) {
+            return 35
+        }
+        if(stories.length >= 8) {
+            return 20
+        }
+        return 100
+    }, [stories.length])
+
     return (
         <View style={{ flex: 1 }}>
             <SwiperFlatList
@@ -93,7 +112,7 @@ const ViewStory = ({ navigation, route }) => {
                         TrackPlayer.stop()
                     }
                 }}
-                paginationStyleItem={{ width: 100, height: 2 }}
+                paginationStyleItem={{ width: width, height: 2 }}
                 data={stories}
                 style={{ flex: 1 }}
                 role=''

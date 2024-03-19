@@ -93,7 +93,7 @@ const StoryByText = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             <TextInput
-                style={{ flex: 1, fontSize: 28, alignSelf: 'center', }}
+                style={{ flex: 1, fontSize: 28, alignSelf: 'center', color: '#000' }}
                 multiline={true}
                 placeholder='Type a Story'
                 inlineImageLeft='search_icon'

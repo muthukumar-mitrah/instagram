@@ -170,7 +170,7 @@ const ViewStory = ({ navigation, route }) => {
                                     />
                                     :
                                     <Image
-                                        source={{ uri: item.photoUrl }}
+                                        source={{ uri: (`https://instagram-api-4ex3.onrender.com/${item?.path}` || item.photoUrl) }}
                                         style={{
                                             width: Dimensions.get('window').width,
                                             height: Dimensions.get('window').height

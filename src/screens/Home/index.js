@@ -70,7 +70,7 @@ const Home = ({ navigation }) => {
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }
             >
-                <Image source={{ uri: 'http://192.168.1.166:7000/story/story/newlogo.png' }} style={styles.textImage} />
+                <Image source={instagramText} style={styles.textImage} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity style={{ marginHorizontal: 20, marginTop: 30 }} onPress={() => setIsVisible(true)}>
                         <Image source={storyIcon} style={{ width: 50, height: 50 }} />

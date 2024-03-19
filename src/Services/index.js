@@ -1,5 +1,5 @@
 
-const BASE_URL = 'https://instagram-azure-zeta.vercel.app'
+const BASE_URL = 'https://instagram-api-4ex3.onrender.com'
 
 const requestOptions = async (method, body) => {
 

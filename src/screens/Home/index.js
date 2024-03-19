@@ -9,6 +9,25 @@ const Home = ({ navigation }) => {
     const { getAllStories, stories } = useAuth()
     const [isVisible, setIsVisible] = useState(false)
     const [refreshing, setRefreshing] = useState(false)
+    const [imageUri, setImageUri] = useState(null);
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            try {
+                const response = await fetch('https://instagram-azure-zeta.vercel.app/story/story/newlogo.png');
+                // const blob = await response.blob();
+                // const uri = URL.createObjectURL(blob);
+                console.log('response', response)
+                // setImageUri(uri);
+            } catch(error) {
+                console.error('Error fetching image:', error);
+            }
+        };
+
+        fetchImage();
+    }, []);
+
+    console.log('imageUri', imageUri)
 
     const openGallery = async () => {
         const options = {
@@ -51,7 +70,7 @@ const Home = ({ navigation }) => {
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 }
             >
-                <Image source={instagramText} style={styles.textImage} />
+                <Image source={{ uri: 'http://192.168.1.166:7000/story/story/newlogo.png' }} style={styles.textImage} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity style={{ marginHorizontal: 20, marginTop: 30 }} onPress={() => setIsVisible(true)}>
                         <Image source={storyIcon} style={{ width: 50, height: 50 }} />

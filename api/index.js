@@ -14,6 +14,7 @@ app.use(cors())  // fix cross origin issues
 app.use(express.json())         // body parser
 app.use(express.urlencoded({ extended: true }))
 app.use('/story', express.static(__dirname + '/'))
+app.use(express.static(path.join(__dirname, '/')));
 
 app.use('/', router)      // connect routes
 

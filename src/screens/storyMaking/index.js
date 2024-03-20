@@ -12,6 +12,7 @@ const StoryMaking = ({ route, navigation }) => {
     const { res } = route?.params
     const [isLoading, setIsLoading] = useState(true)
     const [combinedUri, setCombinedUri] = useState({})
+    const [audioFile, setAudioFile] = useState({})
     const { getAllStories } = useAuth()
 
     useEffect(() => {
@@ -34,11 +35,19 @@ const StoryMaking = ({ route, navigation }) => {
         const userId = Math.floor(Math.random() * 100) + 1;
         const formData = new FormData();
 
-        formData.append('media', {
+        formData.append('file', {
             uri: res.uri,
             type: res.type,
             name: res.fileName
         })
+
+        if(Object.keys(audioFile).length) {
+            formData.append('media', {
+                uri: audioFile.uri,
+                type: audioFile.type,
+                name: audioFile.name
+            })
+        }
 
         formData.append("userId", userId);
         formData.append("photoUrl", combinedUri.photoUrl || res.uri);
@@ -77,6 +86,7 @@ const StoryMaking = ({ route, navigation }) => {
                 await TrackPlayer.reset()
                 setCombinedUri({ photoUrl: res.uri, musicUrl: result[0].uri })
                 playAudio(result[0].uri)
+                setAudioFile(result[0])
             }
         } catch(error) {
             if(DocumentPicker.isCancel(error)) {
@@ -100,7 +110,11 @@ const StoryMaking = ({ route, navigation }) => {
                 <Text style={{ fontSize: 18, color: '#fff' }}>Audio/Music</Text>
             </TouchableOpacity>
             {res?.type?.includes('image') ?
-                <Image source={{ uri: res.uri }} style={styles.textImage} />
+                <Image
+                    source={{ uri: res.uri }}
+                    style={styles.textImage}
+                    resizeMode='stretch'
+                />
                 :
                 <Video
                     source={{ uri: res.uri }}

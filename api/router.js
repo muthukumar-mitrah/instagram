@@ -6,20 +6,36 @@ const router = express.Router()
 
 router.get('/', (req, res, next) => {
   res.send('instagram api is running success!!')
-})  
-
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    console.log('file', file)
-    callback(null, 'uploads')
-  },
-  filename: (req, file, callback) => {
-    console.log('req fileeeeeeees', file)
-    callback(null, file.originalname)
-  }
 })
 
-router.post('/uploadStory', multer({ storage }).single('media'), uploadStory)
+const destFn = (file, callback) => {
+  if(file.fieldname === 'media') {
+    callback(null, 'uploads/audios');
+  }
+  if(file.fieldname === 'file') {
+    callback(null, 'uploads/images');
+  }
+  return
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    destFn(file, cb)
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}-${Date.now()}-${file.originalname}`);
+  },
+
+});
+
+const uploadd = multer({ storage: storage })
+
+const cpUpload = uploadd.fields([
+  { name: 'media', maxCount: 1 },
+  { name: 'file', maxCount: 1 },
+]);
+
+router.post('/uploadStory', cpUpload, uploadStory)
 
 router.get('/stories', getAllStories)
 

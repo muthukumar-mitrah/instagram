@@ -104,9 +104,10 @@ const ViewStory = ({ navigation, route }) => {
                 index={0}
                 showPagination={stories.length === 1 ? false : true}
                 onChangeIndex={async (idx) => {
-                    if(stories[idx.index]?.musicUrl) {
-                        console.log('tories[idx.index].musicUrl', stories[idx.index].musicUrl)
-                        playAudio(stories[idx.index].musicUrl)
+                    if((stories[idx.index]?.audioPath || stories[idx.index]?.musicUrl)) {
+                        let url = stories[idx.index]?.audioPath ? `http://192.168.1.166:7000/${stories[idx.index]?.audioPath}` : stories[idx.index]?.musicUrl
+                        console.log('tories[idx.index].musicUrl', url)
+                        playAudio(url)
                     } else {
                         await TrackPlayer.reset()
                         TrackPlayer.stop()
@@ -119,9 +120,10 @@ const ViewStory = ({ navigation, route }) => {
                 renderItem={({ item, index }) => {
                     const isVideo = (item.photoUrl?.includes('.mp4')) ? true : false
 
-                    if(index === 0 && stories[index]?.musicUrl && !count) {
+                    if(index === 0 && (stories[index]?.audioPath || stories[index]?.musicUrl) && !count) {
                         count = count + 1
-                        playAudio(stories[index].musicUrl)
+                        let url = stories[index]?.audioPath ? `http://192.168.1.166:7000/${stories[index]?.audioPath}` : stories[index]?.musicUrl
+                        playAudio(url)
                     }
 
                     return (
@@ -170,11 +172,12 @@ const ViewStory = ({ navigation, route }) => {
                                     />
                                     :
                                     <Image
-                                        source={{ uri: (`https://instagram-api-4ex3.onrender.com/${item?.path}` || item.photoUrl) }}
+                                        source={{ uri: (`http://192.168.1.166:7000/${item?.imagePath}` || item.photoUrl) }}
                                         style={{
                                             width: Dimensions.get('window').width,
                                             height: Dimensions.get('window').height
                                         }}
+                                        resizeMode='stretch'
                                     />
                             }
                         </View >

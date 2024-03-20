@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet,Dimensions } from 'react-native'
 import { horizontalScale, moderateScale, verticalScale } from '../../styles/metrics'
 
 const styles = StyleSheet.create({
@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
     },
     storyText: { color: '#fff', fontSize: 26, fontWeight: 'bold', fontFamily: 'cursive' },
     textImage: {
-        width: horizontalScale(320),
-        height: verticalScale(400),
+        width: Dimensions.get('window').width,
+        height: verticalScale(600),
         alignSelf: 'center',
-        marginTop: verticalScale(60),
+        marginTop: verticalScale(10),
     },
     storyIcon: { width: 50, height: 50 },
     modal: { flex: 1, alignItems: 'center', justifyContent: 'center' },

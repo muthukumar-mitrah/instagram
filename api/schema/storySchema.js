@@ -7,7 +7,8 @@ const storySchema = new mongoose.Schema({
     text: { type: String, required: false },
     time: { type: Date, default: Date.now },
     timestamp: { type: Date, default: new Date().setDate(new Date().getDate() + 1) },
-    path: { type: String, required: false }
+    imagePath: { type: String, required: false },
+    audioPath: { type: String, required: false }
 });
 
 const Story = mongoose.model('MyStory', storySchema)

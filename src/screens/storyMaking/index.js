@@ -14,6 +14,8 @@ const StoryMaking = ({ route, navigation }) => {
     const [combinedUri, setCombinedUri] = useState({})
     const [audioFile, setAudioFile] = useState({})
     const { getAllStories } = useAuth()
+    const [apiLoading, setApiLoading] = useState(false)
+
 
     useEffect(() => {
         setTimeout(() => {
@@ -54,6 +56,7 @@ const StoryMaking = ({ route, navigation }) => {
         formData.append("musicUrl", combinedUri.musicUrl || '');
 
         try {
+            setApiLoading(true)
             const response = await postStory(formData)
             navigation.navigate('login')
             TrackPlayer.stop()
@@ -61,6 +64,8 @@ const StoryMaking = ({ route, navigation }) => {
             console.log('Upload successful:', response);
         } catch(error) {
             console.error('Upload failed:', error);
+        } finally {
+            setApiLoading(false)
         }
     }
 
@@ -124,8 +129,25 @@ const StoryMaking = ({ route, navigation }) => {
                 />
             }
             <View style={{ position: 'absolute', bottom: 0, alignSelf: 'flex-end', }}>
-                <TouchableOpacity onPress={() => postYourStory()} style={{ backgroundColor: 'green', width: 100, marginRight: 20, marginBottom: 20, padding: 5, borderRadius: 5, alignItems: 'center', marginVertical: 10 }}>
-                    <Text style={{ fontSize: 18, color: '#fff', fontWeight: '500' }}>Send Story</Text>
+                <TouchableOpacity onPress={() => postYourStory()}
+                    style={{
+                        backgroundColor: 'green',
+                        width: 100,
+                        marginRight: 20,
+                        marginBottom: 20,
+                        padding: 5,
+                        borderRadius: 5,
+                        alignItems: 'center',
+                        marginVertical: 10,
+                        height: 40
+                    }}
+                    disabled={apiLoading}
+                >
+                    {apiLoading ?
+                        <ActivityIndicator color={'white'} size={30} />
+                        : <Text style={{ fontSize: 18, color: '#fff', fontWeight: '500' }}>Send Story</Text>
+
+                    }
                 </TouchableOpacity>
             </View>
         </View>

@@ -50,8 +50,8 @@ const ViewStory = ({ navigation, route }) => {
 
     const playAudio = async (uri) => {
 
-        await TrackPlayer.reset()
         TrackPlayer.setupPlayer()
+        await TrackPlayer.reset()
         await TrackPlayer.add({
             id: '1',
             url: uri,
@@ -105,7 +105,7 @@ const ViewStory = ({ navigation, route }) => {
                 showPagination={stories.length === 1 ? false : true}
                 onChangeIndex={async (idx) => {
                     if((stories[idx.index]?.audioPath || stories[idx.index]?.musicUrl)) {
-                        let url = stories[idx.index]?.audioPath ? `http://192.168.1.166:7000/${stories[idx.index]?.audioPath}` : stories[idx.index]?.musicUrl
+                        let url = stories[idx.index]?.audioPath ? `https://instagram-api-4ex3.onrender.com/${stories[idx.index]?.audioPath}` : stories[idx.index]?.musicUrl
                         console.log('tories[idx.index].musicUrl', url)
                         playAudio(url)
                     } else {
@@ -122,7 +122,7 @@ const ViewStory = ({ navigation, route }) => {
 
                     if(index === 0 && (stories[index]?.audioPath || stories[index]?.musicUrl) && !count) {
                         count = count + 1
-                        let url = stories[index]?.audioPath ? `http://192.168.1.166:7000/${stories[index]?.audioPath}` : stories[index]?.musicUrl
+                        let url = stories[index]?.audioPath ? `https://instagram-api-4ex3.onrender.com/${stories[index]?.audioPath}` : stories[index]?.musicUrl
                         playAudio(url)
                     }
 
@@ -172,7 +172,7 @@ const ViewStory = ({ navigation, route }) => {
                                     />
                                     :
                                     <Image
-                                        source={{ uri: (`http://192.168.1.166:7000/${item?.imagePath}` || item.photoUrl) }}
+                                        source={{ uri: (`https://instagram-api-4ex3.onrender.com/${item?.imagePath}` || item.photoUrl) }}
                                         style={{
                                             width: Dimensions.get('window').width,
                                             height: Dimensions.get('window').height
